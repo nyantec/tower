@@ -59,7 +59,7 @@ impl<S, F> MapResult<S, F> {
 impl<S, F, Request, Response, Error> Service<Request> for MapResult<S, F>
 where
     S: Service<Request>,
-    Error: From<S::Error>,
+    S::Error: Into<Error>,
     F: FnOnce(Result<S::Response, S::Error>) -> Result<Response, Error> + Clone,
 {
     type Response = Response;

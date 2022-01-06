@@ -544,7 +544,7 @@ pub trait ServiceExt<Request>: tower_service::Service<Request> {
     fn map_result<F, Response, Error>(self, f: F) -> MapResult<Self, F>
     where
         Self: Sized,
-        Error: From<Self::Error>,
+        Self::Error: Into<Error>,
         F: FnOnce(Result<Self::Response, Self::Error>) -> Result<Response, Error> + Clone,
     {
         MapResult::new(self, f)
